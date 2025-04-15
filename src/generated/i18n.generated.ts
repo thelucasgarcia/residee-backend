@@ -5,30 +5,11 @@
 import { Path } from "nestjs-i18n";
 /* prettier-ignore */
 export type I18nTranslations = {
-    "test": {
-        "HELLO": string;
-        "PRODUCT": {
-            "NEW": string;
+    "errors": {
+        "user": {
+            "404_USER_NOT_FOUND": string;
+            "400_EMAIL_ALREADY_EXISTS": string;
         };
-        "ENGLISH": string;
-        "ARRAY": [
-            string,
-            string,
-            string
-        ];
-        "cat": string;
-        "cat_name": string;
-        "set-up-password": {
-            "heading": string;
-            "title": string;
-            "followLink": string;
-        };
-        "day_interval": {
-            "one": string;
-            "other": string;
-            "zero": string;
-        };
-        "nested": string;
     };
 };
 /* prettier-ignore */
