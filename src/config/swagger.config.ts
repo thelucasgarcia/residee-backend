@@ -12,11 +12,12 @@ export function setupSwagger(app: INestApplication): void {
         type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
-        name: 'Authorization',
         in: 'header',
+        name: 'Authorization',
+        description: 'Enter your Bearer token',
       },
-      'JWT-auth',
     )
+    .addSecurityRequirements('bearer')
     .build()
 
   const document = SwaggerModule.createDocument(app, config)
@@ -28,5 +29,6 @@ export function setupSwagger(app: INestApplication): void {
     },
     jsonDocumentUrl: '/api/swagger.json',
     raw: ['json', 'yaml'],
+
   });
 }

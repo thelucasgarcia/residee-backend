@@ -1,6 +1,8 @@
 {
-  "user": {
-    "404_USER_NOT_FOUND": "O usuário solicitado não foi encontrado. Por favor, verifique o ID do usuário e tente novamente.",
-    "400_EMAIL_ALREADY_EXISTS": "Já existe um usuário com este e-mail."
-  }
+  "403_ROLE_FORBIDDEN": "Você não tem permissão para acessar este recurso.",
+  "404_USER_NOT_FOUND": "O usuário solicitado não foi encontrado. Por favor, verifique o ID do usuário e tente novamente.",
+  "400_EMAIL_ALREADY_EXISTS": "Já existe um usuário com este e-mail.",
+  "401_AUTH_INVALID_CREDENTIALS": "Credenciais inválidas.",
+  "403_AUTH_INVALID_USER_ID": "ID do usuário inválido.",
+  "403_AUTH_INVALID_REFRESH_TOKEN": "Token de atualização inválido."
 }

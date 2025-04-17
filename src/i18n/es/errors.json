@@ -1,6 +1,8 @@
 {
-  "user": {
-    "404_USER_NOT_FOUND": "User not found.",
-    "400_EMAIL_ALREADY_EXISTS": "A user with this email already exists."
-  }
+  "403_ROLE_FORBIDDEN": "No tienes permiso para acceder a este recurso.",
+  "404_USER_NOT_FOUND": "User not found.",
+  "400_EMAIL_ALREADY_EXISTS": "A user with this email already exists.",
+  "401_AUTH_INVALID_CREDENTIALS": "Credenciales inválidas.",
+  "403_AUTH_INVALID_USER_ID": "ID de usuario inválido.",
+  "403_AUTH_INVALID_REFRESH_TOKEN": "Token de actualización inválido."
 }

@@ -1,8 +1,10 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { I18nMiddleware, I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
 import { ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from '@/config/swagger.config';
+import { JwtAuthGuard } from './modules/auth/guard/auth.guard';
+import { RolesGuard } from './modules/auth/guard/roles.guard';
 
 declare const module: {
   hot?: { accept: () => void; dispose: (callback: () => void) => void };
@@ -20,6 +22,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
   });
+
+  app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector)));
+  app.useGlobalGuards(new RolesGuard(app.get(Reflector)));
 
   //Middlewares
   app.use(I18nMiddleware)

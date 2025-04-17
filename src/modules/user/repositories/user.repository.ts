@@ -3,33 +3,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginateQuery, Paginated, paginate } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../entities/user.entity';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { USER_PAGINATION_CONFIG } from '../config/paginate.config';
-import { Column } from 'nestjs-paginate/lib/helper';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { User } from '../entities/user.entity';
 
 @Injectable()
-export class UserRepository implements BaseRepository<UserEntity> {
+export class UserRepository implements BaseRepository<User> {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly repo: Repository<UserEntity>,
+    @InjectRepository(User)
+    private readonly repo: Repository<User>,
   ) { }
 
-  findAll(input: PaginateQuery): Promise<Paginated<UserEntity>> {
+  findAll(input: PaginateQuery): Promise<Paginated<User>> {
     return paginate(input, this.repo, USER_PAGINATION_CONFIG)
   }
 
-  create(input: CreateUserDto): Promise<UserEntity> {
+  create(input: CreateUserDto): Promise<User> {
     return this.repo.save(input);
   }
 
-  findOne(id: string): Promise<UserEntity | null> {
+  findOne(id: string): Promise<User | null> {
     return this.repo.findOne({
       where: { id },
     })
   }
 
-  update(id: string, input: UserEntity): Promise<UserEntity> {
+  update(id: string, input: User): Promise<User> {
     throw new Error('Method not implemented.');
   }
   delete(id: string): Promise<boolean> {

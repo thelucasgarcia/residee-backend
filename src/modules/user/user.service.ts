@@ -24,7 +24,7 @@ export class UserService {
   async findOne(id: string) {
     const user = await this.repository.findOne(id)
     if (!user) {
-      throw new NotFoundException(this.i18n.translate('errors.user.404_USER_NOT_FOUND'))
+      throw new NotFoundException(this.i18n.translate('errors.404_USER_NOT_FOUND'))
     }
     return user
   }

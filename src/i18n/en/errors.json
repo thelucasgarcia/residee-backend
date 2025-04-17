@@ -1,6 +1,8 @@
 {
-  "user": {
-    "404_USER_NOT_FOUND": "The requested user could not be found. Please verify the user ID and try again.",
-    "400_EMAIL_ALREADY_EXISTS": "A user with this email already exists."
-  }
+  "403_ROLE_FORBIDDEN": "You do not have the required permission to access this resource.",
+  "400_EMAIL_ALREADY_EXISTS": "A user with this email already exists.",
+  "404_USER_NOT_FOUND": "The requested user could not be found. Please verify the user ID and try again.",
+  "401_AUTH_INVALID_CREDENTIALS": "Invalid credentials.",
+  "403_AUTH_INVALID_USER_ID": "User ID is invalid.",
+  "403_AUTH_INVALID_REFRESH_TOKEN": "Invalid refresh token."
 }
