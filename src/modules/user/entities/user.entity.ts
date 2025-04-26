@@ -1,4 +1,4 @@
-import { BaseEntity } from '@/common/entities/base.entity';
+import { BaseEntity } from '@/shared/entities/base.entity';
 import { RefreshToken } from '@/modules/auth/entities/refresh-tokens.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
@@ -49,7 +49,7 @@ export class User extends BaseEntity {
   })
   @ApiProperty({
     description: 'Password for the user account. Must be at least 6 characters long.',
-    example: 'password123',
+    example: '123456',
     minLength: 6,
     writeOnly: true,
     required: true

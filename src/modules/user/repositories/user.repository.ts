@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/common/repositories/base.repository';
+import { BaseRepository } from '@/shared/repositories/base.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginateQuery, Paginated, paginate } from 'nestjs-paginate';
@@ -28,12 +28,19 @@ export class UserRepository implements BaseRepository<User> {
     })
   }
 
+  findByEmail(email: string): Promise<User | null> {
+    return this.repo.findOne({
+      where: { email },
+    })
+  }
+
   update(id: string, input: User): Promise<User> {
     throw new Error('Method not implemented.');
   }
-  delete(id: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<boolean> {
+    return Boolean(this.repo.softDelete({ id }))
   }
+
   count(): Promise<number> {
     throw new Error('Method not implemented.');
   }

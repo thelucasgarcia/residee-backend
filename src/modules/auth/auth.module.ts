@@ -1,14 +1,12 @@
-import { User } from 'src/modules/user/entities/user.entity';
 import { Module } from '@nestjs/common';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/modules/user/entities/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { RefreshToken } from './entities/refresh-tokens.entity';
 import { JWT_KEY } from './constants/jwt.secret';
+import { RefreshToken } from './entities/refresh-tokens.entity';
 import { JwtStrategy } from './strategy/jwt.strategy';
-import { UserService } from '../user/user.service';
-import { UserRepository } from '../user/repositories/user.repository';
 
 @Module({
   imports: [

@@ -6,12 +6,13 @@ import { Path } from "nestjs-i18n";
 /* prettier-ignore */
 export type I18nTranslations = {
     "errors": {
-        "403_ROLE_FORBIDDEN": string;
         "400_EMAIL_ALREADY_EXISTS": string;
-        "404_USER_NOT_FOUND": string;
         "401_AUTH_INVALID_CREDENTIALS": string;
-        "403_AUTH_INVALID_USER_ID": string;
         "403_AUTH_INVALID_REFRESH_TOKEN": string;
+        "403_AUTH_INVALID_USER_ID": string;
+        "403_ROLE_FORBIDDEN": string;
+        "404_COUNTRY_NOT_FOUND": string;
+        "404_USER_NOT_FOUND": string;
     };
 };
 /* prettier-ignore */

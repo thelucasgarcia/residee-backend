@@ -1,14 +1,13 @@
-import { I18nTranslations } from '@/generated/i18n.generated';
+import { RoleForbiddenException } from '@/shared/exceptions/role-invalid-forbidden.exception';
 import {
   CanActivate,
   ExecutionContext,
-  ForbiddenException,
-  Injectable,
+  Injectable
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { I18nContext } from 'nestjs-i18n';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 import { RoleEnum } from '../enums/role.enum';
+import { User } from '@/modules/user/entities/user.entity';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -17,7 +16,6 @@ export class RolesGuard implements CanActivate {
   ) { }
 
   canActivate(context: ExecutionContext): boolean {
-    const i18n = I18nContext.current<I18nTranslations>();
     const requiredRoles = this.reflector.getAllAndOverride<RoleEnum[]>(
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
@@ -28,14 +26,15 @@ export class RolesGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const user = request.user;
 
-    if (user.roles.includes(RoleEnum.ADMIN)) {
+    const user = request.user as User;
+
+    if (user?.roles?.includes(RoleEnum.ADMIN)) {
       return true;
     }
 
-    if (!user?.roles || !requiredRoles.every(role => user.roles.includes(role))) {
-      throw new ForbiddenException(i18n?.translate('errors.403_ROLE_FORBIDDEN'));
+    if (!user?.roles || !requiredRoles.every(role => user?.roles?.includes(role))) {
+      throw new RoleForbiddenException();
     }
 
     return true;

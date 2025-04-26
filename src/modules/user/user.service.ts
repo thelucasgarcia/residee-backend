@@ -5,15 +5,22 @@ import { PaginateQuery } from 'nestjs-paginate';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './repositories/user.repository';
+import { UserNotFoundException } from '@/shared/exceptions/user-not-found.exception';
+import { EmailAlreadyExistsException } from '@/shared/exceptions/email-already-exists.exception';
 
 @Injectable()
 export class UserService {
   constructor(
     private repository: UserRepository,
-    private readonly i18n: I18nService<I18nTranslations>,
   ) { }
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
+    const userExist = await this.repository.findByEmail(createUserDto.email)
+
+    if (userExist) {
+      throw new EmailAlreadyExistsException()
+    }
+
     return this.repository.create(createUserDto);
   }
 
@@ -24,7 +31,7 @@ export class UserService {
   async findOne(id: string) {
     const user = await this.repository.findOne(id)
     if (!user) {
-      throw new NotFoundException(this.i18n.translate('errors.404_USER_NOT_FOUND'))
+      throw new UserNotFoundException()
     }
     return user
   }
@@ -33,7 +40,8 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.findOne(id)
+    return this.repository.delete(user.id)
   }
 }

@@ -15,8 +15,8 @@ import { i18nConfig } from '@/config/i18n.config';
   controllers: [UserController],
   providers: [
     UserService,
-    UserRepository, // Adicionado como provider
+    UserRepository,
   ],
-  exports: [UserRepository], // Exportado caso outros módulos precisem dele
+  exports: [UserRepository],
 })
 export class UserModule { }

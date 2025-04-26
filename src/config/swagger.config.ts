@@ -5,7 +5,7 @@ export function setupSwagger(app: INestApplication): void {
   // Swagger
   const config = new DocumentBuilder()
     .setTitle('Residee API')
-    .setDescription('API documentation for the Residee platform')
+    .setDescription(' API documentation for the Residee platform. <br/> <br/> [OPEN API - JSON](./swagger.json) <br> [OPEN API - YAML](./swagger.yaml)')
     .setVersion('1.0')
     .addBearerAuth(
       {
@@ -28,7 +28,7 @@ export function setupSwagger(app: INestApplication): void {
       persistAuthorization: true,
     },
     jsonDocumentUrl: '/api/swagger.json',
+    yamlDocumentUrl: '/api/swagger.yaml',
     raw: ['json', 'yaml'],
-
   });
 }

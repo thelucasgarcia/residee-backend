@@ -1,8 +1,8 @@
-import { NestFactory, Reflector } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { I18nMiddleware, I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
-import { ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from '@/config/swagger.config';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { I18nMiddleware, I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
+import { AppModule } from './app.module';
 import { JwtAuthGuard } from './modules/auth/guard/auth.guard';
 import { RolesGuard } from './modules/auth/guard/roles.guard';
 

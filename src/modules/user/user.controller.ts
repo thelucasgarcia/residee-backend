@@ -1,15 +1,16 @@
-import { FindOneDto } from '@/common/dto/find-one.dto';
 import { RoleEnum } from '@/modules/auth/enums/role.enum';
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { ApiBasicAuth, ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { FindOneDto } from '@/shared/dto/find-one.dto';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Paginate, Paginated, PaginatedSwaggerDocs, PaginateQuery } from 'nestjs-paginate';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { USER_PAGINATION_CONFIG } from './config/paginate.config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
-import { Roles } from '../auth/decorators/roles.decorator';
-import { JwtAuthGuard } from '../auth/guard/auth.guard';
+import { Public } from '../auth/guard/public.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -17,10 +18,10 @@ import { JwtAuthGuard } from '../auth/guard/auth.guard';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Get('admin-only')
+  @Get('me')
   @Roles(RoleEnum.USER)
-  getForAdmins() {
-    return 'Only admin can access';
+  getForAdmins(@CurrentUser() user: User) {
+    return user;
   }
 
   @Get('landlord-or-admin')
@@ -32,6 +33,7 @@ export class UserController {
   @Post()
   @ApiBody({ type: CreateUserDto })
   @ApiOkResponse({ type: User })
+  @Public()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
@@ -55,6 +57,6 @@ export class UserController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }
